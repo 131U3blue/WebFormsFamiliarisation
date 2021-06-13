@@ -16,22 +16,12 @@ namespace WingTipToysMSDN
         public static SeasonContext _driverDb = new SeasonContext();
 
 
-        protected override void Render(HtmlTextWriter writer)
-        {
-            foreach (Control c in Controls) {
-                this.Page.ClientScript.RegisterForEventValidation(c.UniqueID.ToString());
-            }
-            base.Render(writer);
-        }
+
 
         protected void Page_Load(object sender, EventArgs e)
         {            
-            if (!IsPostBack) {
-                var ddList = GetDropDown();                
-                ddList.DataSource = CreateDataSource();
-                ddList.DataTextField = "DriverName";
-                ddList.DataValueField = "DriverId";
-                ddList.DataBind();
+            if (!IsPostBack) {            
+
                 var driverList = new List<Driver>();
                 foreach (var driver in _driverDb.Drivers) {
                     driverList.Add(driver);
@@ -52,6 +42,19 @@ namespace WingTipToysMSDN
                 else { Console.WriteLine("NULL"); }
             }
             return dropDownList;
+        }
+
+        protected void DriverRepeater_OnItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            if (e.Item.ItemType != ListItemType.Item && e.Item.ItemType != ListItemType.AlternatingItem) {
+                return;
+            }
+
+            var ddList = e.Item.FindControl("ddList") as DropDownList;
+            ddList.DataSource = CreateDataSource();
+            ddList.DataTextField = "DriverName";
+            ddList.DataValueField = "DriverId";
+            ddList.DataBind();
         }
 
         ICollection CreateDataSource()
@@ -87,6 +90,13 @@ namespace WingTipToysMSDN
             return driverNames;
         }
 
+        protected override void Render(HtmlTextWriter writer)
+        {
+            foreach (Control c in Controls) {
+                this.Page.ClientScript.RegisterForEventValidation(c.UniqueID.ToString());
+            }
+            base.Render(writer);
+        }
 
     }
 }

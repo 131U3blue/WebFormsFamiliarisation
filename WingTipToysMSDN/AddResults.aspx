@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="Add Race Results" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="AddResults.aspx.cs" Inherits="WingTipToysMSDN.AddResults" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <h1><%#: Page.Title %></h1>
-    <asp:Repeater ID="DriverRepeater" runat="server">
+    <asp:Repeater ID="DriverRepeater" OnItemDataBound="DriverRepeater_OnItemDataBound" runat="server">
         <HeaderTemplate>
             <table border="1">
                 <tr>
@@ -13,10 +13,10 @@
                 <tr>
                     <td style="color:aliceblue" runat="server"><%# DataBinder.Eval(Container.DataItem, "DriverId") %> </td>
                     <td style="width:500px">
-<%--                        <asp:DropDownList ID="ddList" AutoPostBack="true" runat="server">
+                        <asp:DropDownList ID="ddList" AutoPostBack="true" BackColor="Black" runat="server">
                             <asp:ListItem></asp:ListItem>
-                        </asp:DropDownList>--%>
-                        <select style="background-color:black; width:500px">
+                        </asp:DropDownList>
+<%--                        <select style="background-color:black; width:500px">
                             <option value="" disabled selected hidden>Choose a driver</option>
                             <option value="1">Lewis Hamilton</option>
                             <option value="2">Valtteri Bottas</optionv>
@@ -38,7 +38,7 @@
                             <option value="18">Nikita Mazepin</option>
                             <option value="19">George Russell</option>
                             <option value="20">Nicholas Latifi</option>
-                        </select>
+                        </select>--%>
                     </td>
                 </tr>
         </ItemTemplate>
