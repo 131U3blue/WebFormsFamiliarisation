@@ -7,6 +7,9 @@ using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Microsoft.AspNet.Identity;
+using System.Linq;
+using WingTipToysMSDN.Models;
+using WingTipToysMSDN.Logic;
 
 namespace WingTipToysMSDN
 {
@@ -15,6 +18,7 @@ namespace WingTipToysMSDN
         private const string AntiXsrfTokenKey = "__AntiXsrfToken";
         private const string AntiXsrfUserNameKey = "__AntiXsrfUserName";
         private string _antiXsrfTokenValue;
+
 
         protected void Page_Init(object sender, EventArgs e)
         {
@@ -70,6 +74,21 @@ namespace WingTipToysMSDN
         protected void Page_Load(object sender, EventArgs e)
         {
 
+        }
+
+        protected void Page_PreRender(object sender, EventArgs e)
+        {
+            using (CartActions usersShoppingCart = new CartActions()) {
+                string cartStr = string.Format("Cart ({0})", usersShoppingCart.GetCount());
+                cartCount.InnerText = cartStr;
+            }
+        }
+
+        public IQueryable<Team> GetTeams()
+        {
+            var _db = new WingTipToysMSDN.Models.SeasonContext();
+            IQueryable<Team> query = _db.Teams;
+            return query;
         }
 
         protected void Unnamed_LoggingOut(object sender, LoginCancelEventArgs e)

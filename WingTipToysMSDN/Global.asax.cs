@@ -20,7 +20,7 @@ namespace WingTipToysMSDN
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
             //Initialise the driver database
-            Database.SetInitializer(new DriverDatabaseInitialiser());
+            Database.SetInitializer(new SeasonDatabaseInitialiser());
         }
     }
 }

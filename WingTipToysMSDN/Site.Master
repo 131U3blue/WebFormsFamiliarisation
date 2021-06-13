@@ -6,7 +6,7 @@
 <head runat="server">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title><%: Page.Title %> - My ASP.NET Application</title>
+    <title><%: Page.Title %> - F1 News and Updates</title>
 
     <asp:PlaceHolder runat="server">
         <%: Scripts.Render("~/bundles/modernizr") %>
@@ -38,6 +38,11 @@
         </asp:ScriptManager>
 
         <div class="navbar navbar-inverse navbar-fixed-top">
+                    <div id="BannerImage" style=""text-align: center">
+                        <a runat="server" href="~/">
+                            <asp:Image ID="Image2" runat="server" ImageUrl="~/images/general/formula-1-logo-7.jpg" Width="150" Height="38" BorderStyle="None"/>
+                        </a>
+                    </div>
             <div class="container">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -45,13 +50,17 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" runat="server" href="~/">Application name</a>
+                    <a class="navbar-brand" runat="server" href="~/">Formula Zero</a>
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
                         <li><a runat="server" href="~/">Home</a></li>
                         <li><a runat="server" href="~/About">About</a></li>
                         <li><a runat="server" href="~/Contact">Contact</a></li>
+                        <li><a runat="server" href="~/DriverList">Drivers</a></li>
+                        <li><a runat="server" href="~/Calendar">Calendar</a></li>
+                        <li><a runat="server" href="~/ProductList">Merch</a></li>
+                        <li><a runat="server" href="~/ShoppingCart" id="cartCount">&nbsp;</a></li>
                     </ul>
                     <asp:LoginView runat="server" ViewStateMode="Disabled">
                         <AnonymousTemplate>
@@ -72,12 +81,35 @@
                 </div>
             </div>
         </div>
+        <div id="TitleContent" style="text-align: center">
+            <a runat="server" href="~/">
+                <asp:Image ID="Image1" runat="server" ImageUrl="~/images/general/FrontWing.jpg"  BorderStyle="None"/>
+            </a>
+            <br />
+        </div>
+
+        <!--This creates a div that displays a list of all of the Teams, allowing you to view each driver from there-->
+        <div id="TeamMenu" style="text-align: center">
+            <asp:ListView ID="teamList"
+                ItemType="WingTipToysMSDN.Models.Team"
+                runat="server"
+                SelectMethod="GetTeams" >
+                <ItemTemplate>
+                    <b style="font-size: large; font-style: normal">
+                        <a style="color: red" href="DriverList.aspx?id=<%#: Item.TeamId %>">
+                            <%#: Item.TeamName %>
+                        </a>
+                    </b>
+                </ItemTemplate>
+                <ItemSeparatorTemplate> | </ItemSeparatorTemplate>
+            </asp:ListView>
+        </div>
         <div class="container body-content">
             <asp:ContentPlaceHolder ID="MainContent" runat="server">
             </asp:ContentPlaceHolder>
             <hr />
             <footer>
-                <p>&copy; <%: DateTime.Now.Year %> - My ASP.NET Application</p>
+                <p>&copy; <%: DateTime.Now.Year %> - Formula Zero</p>
             </footer>
         </div>
     </form>

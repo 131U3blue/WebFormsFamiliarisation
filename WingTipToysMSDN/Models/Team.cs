@@ -15,7 +15,7 @@ namespace WingTipToysMSDN.Models
         public string TeamDescription { get; set; }
 
         [Display(Name = "Team Points")]
-        public int? TeamPoints { get; set; }
+        public int TeamPoints { get; set; }
 
         public ICollection<Driver> Drivers { get; set; }
 
