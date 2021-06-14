@@ -35,8 +35,11 @@
                             <h4 <%#:Item.TrackId %>">
                                 <span style="font-size:large"><%#:Item.Country %></span>
                             </h4>
-                            <a href="AddResults.aspx?trackId=<%#:Item.TrackId %>">
-                                <asp:Button OnClick="addResultsBtn_Click" BackColor='<%#(Item.RaceDate <= DateTime.Now)?System.Drawing.Color.Red:System.Drawing.Color.Gray %>'
+                            <a href="AddResults.aspx?trackId=<%#:Item.TrackId%>">
+                                <%--<Button style="background-color:red; width: 100px; height: 30px; border-radius:20px" ID="addResultsBtn" runat="server" Text="Add Results" enableviewstate="<%#(Item.RaceDate <= DateTime.Now)%>" >Add Results</Button>--%>
+                                <%--<asp:LinkButton OnClick="addResultsBtn_Click" BackColor='<%#(Item.RaceDate <= DateTime.Now)?System.Drawing.Color.Red:System.Drawing.Color.Gray %>'
+                                    ID="addResultsBtn" runat="server" Text="Add Results" Enabled="<%#(Item.RaceDate <= DateTime.Now)%>"></asp:LinkButton>--%>
+                                <asp:Button CommandArgument="<%# Item.TrackId.ToString()%>" OnCommand="addResultsBtn_Click" BackColor='<%#(Item.RaceDate <= DateTime.Now)?System.Drawing.Color.Red:System.Drawing.Color.Gray %>'
                                     ID="addResultsBtn" runat="server" Text="Add Results" Enabled="<%#(Item.RaceDate <= DateTime.Now)%>" />
                             </a>
                             <br />

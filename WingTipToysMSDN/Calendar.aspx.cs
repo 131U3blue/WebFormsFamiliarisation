@@ -11,18 +11,22 @@ namespace WingTipToysMSDN
 {
     public partial class Calendar : System.Web.UI.Page
     {
+        public int? TrackId;
+
         protected void Page_Load(object sender, EventArgs e)
         {
 
         }
 
-        protected void addResultsBtn_Click(object sender, EventArgs e)
+        protected void addResultsBtn_Click(object sender, CommandEventArgs e)
         {
-            Response.Redirect("AddResults.aspx");
+            var trackIdUrl = e.CommandArgument;
+            Response.Redirect("AddResults.aspx?trackId=" + trackIdUrl);
         }
 
         public IQueryable<Track> GetTracks([QueryString("trackId")] int? trackId)
         {
+            TrackId = trackId;
             var _db = new SeasonContext();
             IQueryable<Track> query = _db.Tracks;
             if (trackId.HasValue && trackId > 0) {

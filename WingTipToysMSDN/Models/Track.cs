@@ -20,5 +20,7 @@ namespace WingTipToysMSDN.Models
         [Required, Display(Name = "Date")]
         public DateTime RaceDate { get; set; }
 
+        public List<Result> Results = new List<Result>();
+
     }
 }

@@ -33,7 +33,7 @@ namespace WingTipToysMSDN
         {
             var _db = new Models.SeasonContext();
             IQueryable<Driver> query = _db.Drivers;
-            List<Driver> orderedQuery = query.OrderBy(q => q.DriverPoints).ToList();
+            List<Driver> orderedQuery = query.OrderByDescending(q => q.DriverPoints).ToList();
             int position = 0;
             for (int i = 0; i < orderedQuery.Count(); i++) {
                 if (orderedQuery[i].DriverId == driverId) {

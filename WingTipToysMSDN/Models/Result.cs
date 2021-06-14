@@ -9,11 +9,11 @@ namespace WingTipToysMSDN.Models
     public class Result
     {
         [ScaffoldColumn(false)]
-        public int ResultId { get; set; }
+        public string ResultId { get; set; }
 
-        public virtual Driver Driver { get; set; }
+        public int DriverId { get; set; }
 
-        public virtual Track Track { get; set; }
+        public int TrackId { get; set; }
 
         [Required, Display(Name = "Finish")]
         public int FinishPosition { get; set; }
@@ -26,10 +26,8 @@ namespace WingTipToysMSDN.Models
 
         public Result(int driverId, int trackId, int finishPos)
         {
-            var drivers = new SeasonContext().Drivers;
-            var tracks = new SeasonContext().Tracks;
-            Driver = drivers.FirstOrDefault(d => d.DriverId == driverId);
-            Track = tracks.FirstOrDefault(t => t.TrackId == trackId);
+            DriverId = driverId;
+            TrackId = trackId;
             FinishPosition = finishPos;
             IsWin = (finishPos == 1);
             IsPodium = (finishPos <= 3 && finishPos > 0);

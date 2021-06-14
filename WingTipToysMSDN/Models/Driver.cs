@@ -33,8 +33,15 @@ namespace WingTipToysMSDN.Models
 
         public virtual Team Team { get; set; } //Why virtual?
 
-        public ICollection<Result> Results { get; set; }
+        public List<Result> Results = new List<Result>();
 
-
+        public void UpdateDetails(Result raceResult)
+        {
+            DriverPoints += raceResult.Points;
+            RaceStarts += 1;
+            if (raceResult.IsWin) Wins++;
+            if (raceResult.IsPodium) Podiums++;
+            if (raceResult.FinishPosition > HighestFinish) HighestFinish = raceResult.FinishPosition;
+        }
     }
 }

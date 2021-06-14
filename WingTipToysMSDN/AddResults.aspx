@@ -13,10 +13,10 @@
                 <tr>
                     <td style="color:aliceblue" runat="server"><%# DataBinder.Eval(Container.DataItem, "DriverId") %> </td>
                     <td style="width:500px">
-                        <asp:DropDownList ID="ddList" AutoPostBack="true" BackColor="Black" runat="server">
+                        <asp:DropDownList ID="ddList" AutoPostBack="false" BackColor="Black" runat="server">
                             <asp:ListItem></asp:ListItem>
                         </asp:DropDownList>
-<%--                        <select style="background-color:black; width:500px">
+<%--                    <select style="background-color:black; width:500px">
                             <option value="" disabled selected hidden>Choose a driver</option>
                             <option value="1">Lewis Hamilton</option>
                             <option value="2">Valtteri Bottas</optionv>
@@ -46,7 +46,7 @@
             <tr>
                 <td style="background-color:black"></td>
                 <td>
-                    <button type="submit" style="width:500px; background-color:red; align-self:center">Submit</button>
+                    <asp:Button id="SubmitBtn" runat="server" Text="Submit" onclick="SubmitBtn_CheckAndSubmitResults" type="submit" style="width:500px; background-color:red; align-self:center"></asp:Button>
                 </td>
             </tr>
             </table>
