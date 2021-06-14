@@ -49,9 +49,28 @@ namespace WingTipToysMSDN
                 DropDownList ddList = (DropDownList)item.FindControl("ddList");
                 listOfDropDownLists.Add(ddList);
             }
-            var results = CalculateResult(listOfDropDownLists);
-            Track thisTrack = _driverDb.Tracks.FirstOrDefault(t => t.TrackId == TrackId);
-            thisTrack.Results = results;
+            if (CheckForDuplicateSelections(listOfDropDownLists)) {
+                var results = CalculateResult(listOfDropDownLists);
+                Track thisTrack = _driverDb.Tracks.FirstOrDefault(t => t.TrackId == TrackId);
+                thisTrack.Results = results;
+            }
+            else {
+                var message = "Cannot submit the same driver with different finishing results.";
+                Response.Write("<script language='javascript'>alert('" + message + "')</script>");
+            }
+        }
+
+        protected bool CheckForDuplicateSelections(List<DropDownList> listOfDropDownLists)
+        {
+            var selectionList = new List<int>();
+            foreach(var dropDownList in listOfDropDownLists) {
+                selectionList.Add(Convert.ToInt32(dropDownList.SelectedItem.Value));
+            }
+            IEnumerable<int> duplicates = selectionList.GroupBy(x => x).Where(g => g.Count() > 1).Select(x => x.Key);
+            if (duplicates.Count() > 0) {
+                return false;
+            }
+            else return true;
         }
 
         protected List<Result> CalculateResult(List<DropDownList> listOfDropDownLists)
